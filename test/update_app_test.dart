@@ -16,6 +16,8 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await UpdateApp.platformVersion, '42');
+    await UpdateApp.updateApp(
+        url:
+            "https://cdn.51bolema.com/2019/08/24/ffbf264bc36d404e81bb113fed72bacf.apk");
   });
 }
