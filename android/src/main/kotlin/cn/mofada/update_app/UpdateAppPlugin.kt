@@ -59,7 +59,8 @@ class UpdateAppPlugin(val context: Context) : MethodCallHandler {
         //设置下载完成仍然显示
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         //设置存放路径, 放在应用内部目录
-        request.setDestinationInExternalFilesDir(context, "apks", "download.apk")
+        request.setDestinationInExternalFilesDir(context,
+                "apks", url?.substring(url.lastIndexOf("/") + 1))
         //设置标题
         request.setTitle(title)
         //设置描述

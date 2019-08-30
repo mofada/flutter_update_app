@@ -48,9 +48,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void download() async {
-    var name = await UpdateApp.updateApp(
-        url:
-            "https://cdn.51bolema.com/2019/08/24/ffbf264bc36d404e81bb113fed72bacf.apk");
+    var name = await UpdateApp.updateApp(url: "http://mofada.cn/apks/exam.apk");
     print(name);
   }
 }
