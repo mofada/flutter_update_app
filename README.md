@@ -8,7 +8,8 @@ import 'package:update_app/update_app.dart';
 UpdateApp.updateApp(url: "apkPath",title:"通知标题",description:"通知描述");
 ```
 
-## 特点
+# 特点
+## Android部分
 1. 使用[DownloadManager](https://developer.android.com/reference/android/app/DownloadManager)进行下载
 2. 监听下载完成广播  
 3. 适配[Android 6.0运行时权限](https://developer.android.com/training/permissions/requesting?hl=zh-cn) 文件存储在app目录, 不需要申请运行时权限
