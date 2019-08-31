@@ -4,7 +4,9 @@ import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import java.io.File
 import java.lang.Exception
 
 /**
@@ -13,7 +15,7 @@ import java.lang.Exception
  * @date : 2019/8/30 19:52
  * @description : input your description
  **/
-class DownloadReceiver : BroadcastReceiver() {
+class UpdateReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             DownloadManager.ACTION_DOWNLOAD_COMPLETE -> downloadComplete(context, intent)
@@ -24,6 +26,8 @@ class DownloadReceiver : BroadcastReceiver() {
      * 下载完成
      */
     private fun downloadComplete(context: Context, intent: Intent) {
+        Intent.ACTION_PACKAGE_ADDED
+
         if (!intent.hasExtra(DownloadManager.EXTRA_DOWNLOAD_ID)) {
             //如果没有包含下载的id, 那么返回
             return
@@ -43,15 +47,14 @@ class DownloadReceiver : BroadcastReceiver() {
         val cursor = downloadManager.query(query)
         try {
             if (cursor.moveToFirst()) {
-                val status = cursor.getString(cursor.getColumnIndex(DownloadManager
-                        .COLUMN_STATUS))
+                //获取文件地址
                 val localUri = cursor.getString(cursor.getColumnIndex(DownloadManager
                         .COLUMN_LOCAL_URI))
-                Log.d("TAG", status)
+                installApk(context, File(Uri.parse(localUri).path))
             }
-        }catch (e:Exception){
-
-        }finally {
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
             cursor.close()
         }
     }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <files-path
+            name="apkPath"
+            path="apks" />
+
+        <external-files-path
+            name="apkPath"
+            path="apks" />
+    </paths>
+</resources>

@@ -6,13 +6,23 @@
 
     <application>
         <receiver
-            android:name=".DownloadReceiver"
+            android:name=".UpdateReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.updateprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_path" />
+        </provider>
     </application>
 
 </manifest>

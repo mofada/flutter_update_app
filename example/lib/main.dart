@@ -19,25 +19,23 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  Future<void> initPlatformState() async {
-    String platformVersion;
-
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Update app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('click right bottom download button download!'),
+              Text('Adapt to Android 6.0'),
+              Text('Adapt to Android 7.0'),
+              Text('Adapt to Android 8.0'),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: download,
@@ -48,7 +46,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void download() async {
-    var name = await UpdateApp.updateApp(url: "http://mofada.cn/apks/exam.apk");
+    var name =
+        await UpdateApp.updateApp(url: "https://mofada.cn/apks/exam.apk");
     print(name);
+
+    setState(() {});
   }
 }
