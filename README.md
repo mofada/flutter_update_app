@@ -1,5 +1,7 @@
 # update_app
-flutter插件, 更新app
+更新app, 传入更新的地址, 进行app更新,
+Android部分使用DownloadManager实现. Ios部分不支持外部更新, 跳转App
+Store.
 
 ## 使用方法
 ```dart
@@ -16,3 +18,6 @@ UpdateApp.updateApp(url: "apkPath",title:"通知标题",description:"通知描�
 4. 适配[Android 7.0FileProvider](https://developer.android.com/reference/android/support/v4/content/FileProvider)
 5. 适配Android 8.0安装权限
 6. 适配[Android 9.0网络安全配置](https://developer.android.com/training/articles/security-config)
+
+## IOS部分
+1. 跳转应用商店

@@ -5,3 +5,6 @@
 4. 适配[Android 7.0FileProvider](https://developer.android.com/reference/android/support/v4/content/FileProvider)
 5. 适配[Android 8.0安装权限]()
 6. 适配[Android 9.0网络安全通信]()
+
+## 0.0.3
+1. 完成IOS部分, 跳转Apple Store

@@ -12,8 +12,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -34,6 +32,9 @@ class _MyAppState extends State<MyApp> {
               Text('Adapt to Android 6.0'),
               Text('Adapt to Android 7.0'),
               Text('Adapt to Android 8.0'),
+              TextFormField(
+                obscureText: true,
+              )
             ],
           ),
         ),

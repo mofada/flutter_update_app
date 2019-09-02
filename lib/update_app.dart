@@ -11,11 +11,13 @@ class UpdateApp {
     String url,
     String title = "应用更新...",
     String description = "正在下载中...",
+    String appleId,
   }) async {
     var result = await _channel.invokeMethod('updateApp', {
       "argumentsUrl": url,
       "argumentsTitle": title,
       "argumentsDescription": description,
+      "appleId": appleId
     });
     return result;
   }
