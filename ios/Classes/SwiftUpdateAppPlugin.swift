@@ -14,7 +14,7 @@ public class SwiftUpdateAppPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "updateApp":
-            goAppStore(call: call)
+            goAppStore(call: call, result: result)
             break;
         default:
             result(FlutterMethodNotImplemented)
@@ -23,17 +23,26 @@ public class SwiftUpdateAppPlugin: NSObject, FlutterPlugin {
 
 
     // 跳转Apple Store
-    func goAppStore(call: FlutterMethodCall) {
-        //获取Apple ID
-        let appleId: String = call.value(forKey: "appleId") as! String
-        //拼接地址
-        let appStoreUrl = URL(string: String(format: appStoreLink, appleId))
-        if let url = appStoreUrl, UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:])
-            } else {
-                UIApplication.shared.openURL(url)
+    func goAppStore(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments else {
+            return
+        }
+
+        if let arguments = args as? [String: Any],
+           //获取Apple ID
+           let appleId = arguments["appleId"] as? String {
+            //拼接地址
+            let appStoreUrl = URL(string: String(format: appStoreLink, appleId))
+            if let url = appStoreUrl, UIApplication.shared.canOpenURL(url) {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:])
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
             }
+            result(true)
+        } else {
+            result(false)
         }
     }
 }
