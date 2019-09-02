@@ -1,6 +1,6 @@
 name: update_app
 description: App update based on download url
-version: 0.0.2
+version: 0.0.3
 author: fada<fada@mofada.cn>
 homepage: https://mofada.cn/
 repository: https://github.com/mofada/flutter_update_app

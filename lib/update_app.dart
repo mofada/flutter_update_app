@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class UpdateApp {
@@ -8,17 +9,22 @@ class UpdateApp {
 
   //更新app
   static Future<bool> updateApp({
-    String url,
-    String title = "应用更新...",
-    String description = "正在下载中...",
-    String appleId,
+    @required String url,
+    @required String appleId,
+    String title,
+    String description = "应用更新",
   }) async {
     var result = await _channel.invokeMethod('updateApp', {
       "argumentsUrl": url,
-      "argumentsTitle": title,
+      "argumentsTitle": title ?? appName(url),
       "argumentsDescription": description,
       "appleId": appleId
     });
     return result;
+  }
+
+  ///根据下载地址获取文件名称
+  static String appName(String url) {
+    return url.substring(url.lastIndexOf("/") + 1);
   }
 }

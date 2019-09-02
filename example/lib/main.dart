@@ -32,9 +32,6 @@ class _MyAppState extends State<MyApp> {
               Text('Adapt to Android 6.0'),
               Text('Adapt to Android 7.0'),
               Text('Adapt to Android 8.0'),
-              TextFormField(
-                obscureText: true,
-              )
             ],
           ),
         ),
@@ -47,8 +44,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void download() async {
-    var name =
-        await UpdateApp.updateApp(url: "https://mofada.cn/apks/exam.apk");
+    var name = await UpdateApp.updateApp(
+        url: "https://mofada.cn/apks/example.apk", appleId: "375380948");
     print(name);
 
     setState(() {});

@@ -1,13 +1,13 @@
 # update_app
 更新app, 传入更新的地址, 进行app更新,
-Android部分使用DownloadManager实现. Ios部分不支持外部更新, 跳转App
-Store.
+Android部分使用DownloadManager实现.若文件已下载, 则直接安装.  
+Ios部分不支持外部更新, 跳转App Store.
 
 ## 使用方法
 ```dart
 import 'package:update_app/update_app.dart';
 
-UpdateApp.updateApp(url: "apkPath",title:"通知标题",description:"通知描述");
+UpdateApp.updateApp(url: "apkPath",appleId:"375380948",title:"通知标题",description:"通知描述");
 ```
 
 # 特点
