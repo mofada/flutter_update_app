@@ -1,15 +1,18 @@
 # update_app
+flutter插件, 更新app
 
-update your app
+## 使用方法
+```dart
+import 'package:update_app/update_app.dart';
 
-## Getting Started
+UpdateApp.updateApp(url: "apkPath",title:"通知标题",description:"通知描述");
+```
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
+# 特点
+## Android部分
+1. 使用[DownloadManager](https://developer.android.com/reference/android/app/DownloadManager)进行下载
+2. 监听下载完成广播  
+3. 适配[Android 6.0运行时权限](https://developer.android.com/training/permissions/requesting?hl=zh-cn) 文件存储在app目录, 不需要申请运行时权限
+4. 适配[Android 7.0FileProvider](https://developer.android.com/reference/android/support/v4/content/FileProvider)
+5. 适配Android 8.0安装权限
+6. 适配[Android 9.0网络安全配置](https://developer.android.com/training/articles/security-config)
