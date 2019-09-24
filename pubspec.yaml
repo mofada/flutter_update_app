@@ -1,6 +1,8 @@
 name: update_app
-description: App update based on download url
-version: 0.0.3
+description: Update the app, pass in the updated address, and update the app.
+  The Android part is implemented using DownloadManager. If the file has been downloaded, it will be installed directly.
+  The Ios section does not support external updates, skip the App Store.
+version: 0.0.5
 author: fada<fada@mofada.cn>
 homepage: https://mofada.cn/
 repository: https://github.com/mofada/flutter_update_app

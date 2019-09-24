@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
 
   void download() async {
     var name = await UpdateApp.updateApp(
-        url: "https://mofada.cn/apks/example.apk", appleId: "375380948");
+        url: "https://github.com/mofada/flutter_update_app/apks/app-debug.apk", appleId: "375380948");
     print(name);
 
     setState(() {});

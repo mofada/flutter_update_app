@@ -1,7 +1,12 @@
-# update_app
+# [update_app](https://pub.dev/packages/update_app)
 更新app, 传入更新的地址, 进行app更新,
 Android部分使用DownloadManager实现.若文件已下载, 则直接安装.  
 Ios部分不支持外部更新, 跳转App Store.
+
+## 体验demo
+[apk下载](apks/app-debug.apk)   
+
+![screen](images/screen.png)
 
 ## 使用方法
 ```dart

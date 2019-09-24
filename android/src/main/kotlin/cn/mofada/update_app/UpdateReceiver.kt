@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import java.io.File
 import java.lang.Exception
 
@@ -47,6 +46,9 @@ class UpdateReceiver : BroadcastReceiver() {
         val cursor = downloadManager.query(query)
         try {
             if (cursor.moveToFirst()) {
+                val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                //判断下载状态
+                if (status != DownloadManager.STATUS_SUCCESSFUL) return
                 //获取文件地址
                 val localUri = cursor.getString(cursor.getColumnIndex(DownloadManager
                         .COLUMN_LOCAL_URI))

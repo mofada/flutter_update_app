@@ -1,20 +1,15 @@
 package cn.mofada.update_app
 
 import android.app.DownloadManager
-import android.app.usage.ExternalStorageStats
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ProviderInfo
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import androidx.core.content.FileProvider
 import io.flutter.plugin.common.MethodCall
 import java.io.File
 import java.lang.Exception
-import java.nio.file.spi.FileSystemProvider
-import java.security.Provider
 
 /**
  * @author : fada
@@ -96,6 +91,8 @@ fun downloadApp(call: MethodCall, context: Context): Boolean {
  * 验证apk文件是否完整
  */
 fun verificationApkInfo(context: Context, filePath: String): Boolean {
+    //如果文件不存在, 直接跳过
+    if (!File(filePath).exists()) return false
     val pm = context.packageManager
     //获取应用信息
     val info = pm.getPackageArchiveInfo(filePath, PackageManager.GET_ACTIVITIES)
