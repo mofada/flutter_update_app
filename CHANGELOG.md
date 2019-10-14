@@ -17,3 +17,12 @@
 
 ## 0.0.5
 1.修改版本问题
+
+## 0.1.0
+1.Modify the prompt and version number according to pub.dev
+
+## 0.1.1
+1.update README.MD
+
+## 0.1.2
+1.update README.MD

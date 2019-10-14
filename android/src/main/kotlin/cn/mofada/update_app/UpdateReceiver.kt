@@ -25,8 +25,6 @@ class UpdateReceiver : BroadcastReceiver() {
      * 下载完成
      */
     private fun downloadComplete(context: Context, intent: Intent) {
-        Intent.ACTION_PACKAGE_ADDED
-
         if (!intent.hasExtra(DownloadManager.EXTRA_DOWNLOAD_ID)) {
             //如果没有包含下载的id, 那么返回
             return

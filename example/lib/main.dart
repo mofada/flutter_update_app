@@ -32,6 +32,8 @@ class _MyAppState extends State<MyApp> {
               Text('Adapt to Android 6.0'),
               Text('Adapt to Android 7.0'),
               Text('Adapt to Android 8.0'),
+              Text('Adapt to Android 9.0'),
+              Text('Adapt to Android 10.0'),
             ],
           ),
         ),
