@@ -10,12 +10,11 @@
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="cn.mofada.update_app.UpdateFileProvider"
             android:authorities="${applicationId}.updateprovider"
             android:exported="false"
             android:grantUriPermissions="true">

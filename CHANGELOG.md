@@ -26,3 +26,6 @@
 
 ## 0.1.2
 1.update README.MD
+
+## 0.1.3
+1.fix issues[#3](https://github.com/mofada/flutter_update_app/issues/3)
