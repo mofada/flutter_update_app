@@ -23,5 +23,4 @@
                 android:resource="@xml/update_path" />
         </provider>
     </application>
-
 </manifest>
