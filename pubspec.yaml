@@ -1,7 +1,6 @@
 name: update_app
 description: A new Flutter plugin.
 version: 0.1.3
-author: fada
 homepage: https://mofada.cn/
 repository: https://github.com/mofada/flutter_update_app
 issue_tracker: https://github.com/mofada/flutter_update_app/issues
