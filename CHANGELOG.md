@@ -33,3 +33,6 @@
 ## 0.1.4
 1. fix issues[#5](https://github.com/mofada/flutter_update_app/issues/5)
 2.change gradle version
+
+## 0.1.5
+1.update yaml description
