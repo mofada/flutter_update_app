@@ -1,5 +1,6 @@
 name: update_app
-description: A new Flutter plugin.
+description: Update the app, pass in the updated address, and update the app.
+  The Android part is implemented using DownloadManager.
 version: 0.1.4
 homepage: https://mofada.cn/
 repository: https://github.com/mofada/flutter_update_app
