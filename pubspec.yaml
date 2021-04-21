@@ -1,7 +1,7 @@
 name: update_app
 description: Update the app, pass in the updated address, and update the app.
   The Android part is implemented using DownloadManager.
-version: 0.1.5
+version: 0.1.6
 homepage: https://mofada.cn/
 repository: https://github.com/mofada/flutter_update_app
 issue_tracker: https://github.com/mofada/flutter_update_app/issues
