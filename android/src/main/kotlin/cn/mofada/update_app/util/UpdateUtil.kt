@@ -4,34 +4,13 @@ import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
+import cn.mofada.update_app.constant.ArgumentName
 import io.flutter.plugin.common.MethodCall
 import java.io.File
-import java.lang.Exception
-
-/**
- * @author : fada
- * @email : fada@mofada.cn
- * @date : 2019/8/31 13:46
- * @description : input your description
- **/
-
-/**
- * 更新的文件地址
- */
-const val argumentsUrl: String = "argumentsUrl"
-
-/**
- * 通知栏标题
- */
-const val argumentsTitle: String = "argumentsTitle"
-
-/**
- * 通知栏描述
- */
-const val argumentsDescription: String = "argumentsDescription"
 
 /**
  * 文件存放目录
@@ -45,15 +24,16 @@ const val apkType = "application/vnd.android.package-archive"
 
 /**
  * 下载apk文件
+ * @return -1: 表示下载失败, 出现异常. 0: 表示本地apk已存在, 正在安装. other: 下载的id, 用于查询下载进度
  */
-fun downloadApp(call: MethodCall, context: Context): Boolean {
+fun downloadApp(call: MethodCall, context: Context): Long {
     return try {
         //下载的文件地址
-        val url = call.argument<String>(argumentsUrl)
+        val url = call.argument<String>(ArgumentName.URL)
         //标题
-        val title = call.argument<String>(argumentsTitle)
+        val title = call.argument<String>(ArgumentName.TITLE)
         //描述
-        val description = call.argument<String>(argumentsDescription)
+        val description = call.argument<String>(ArgumentName.DESCRIPTION)
 
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(Uri.parse(url))
@@ -67,7 +47,7 @@ fun downloadApp(call: MethodCall, context: Context): Boolean {
         if (verificationApkInfo(context, filePath)) {
             //安装文件
             installApk(context, File(filePath))
-            return true
+            return 0
         }
 
         //设置下载完成仍然显示
@@ -80,12 +60,47 @@ fun downloadApp(call: MethodCall, context: Context): Boolean {
         //设置下载类型apk
         request.setMimeType(apkType)
         //开始下载
-        downloadManager.enqueue(request)
-        return true
+        return downloadManager.enqueue(request)
     } catch (e: Exception) {
-        false
+        return -1L
     }
 }
+
+/**
+ * 通过query查询下载状态，包括已下载数据大小，总大小，下载状态
+ *
+ * @param
+ * @return
+ */
+fun downloadProcess(call: MethodCall, context: Context): IntArray {
+    val bytesAndStatus = intArrayOf(-1, -1, 0)
+
+    //获取下载id
+    val downloadId = call.argument<Long>(ArgumentName.DOWNLOADID) ?: return bytesAndStatus
+
+    val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+    //通过下载id查询
+    val query = DownloadManager.Query().setFilterById(downloadId)
+    var cursor: Cursor? = null
+    try {
+        cursor = downloadManager.query(query)
+        if (cursor != null && cursor.moveToFirst()) {
+            //已经下载文件大小
+            bytesAndStatus[0] =
+                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+            //下载文件的总大小
+            bytesAndStatus[1] =
+                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+            //下载状态
+            bytesAndStatus[2] = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+        }
+    } finally {
+        cursor?.close()
+    }
+    return bytesAndStatus
+}
+
 
 /**
  * 验证apk文件是否完整
@@ -109,8 +124,10 @@ fun installApk(context: Context, file: File) {
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         //7.0及以上
-        val uri = FileProvider.getUriForFile(context, context.applicationInfo.packageName + "" +
-                ".updateprovider", file)
+        val uri = FileProvider.getUriForFile(
+            context, context.applicationInfo.packageName + "" +
+                    ".updateprovider", file
+        )
         intent.setDataAndType(uri, apkType)
 
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)

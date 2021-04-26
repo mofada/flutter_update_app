@@ -6,7 +6,7 @@
 
     <application>
         <receiver
-            android:name=".UpdateReceiver"
+            android:name=".receiver.UpdateReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
@@ -14,7 +14,7 @@
         </receiver>
 
         <provider
-            android:name="cn.mofada.update_app.UpdateFileProvider"
+            android:name="cn.mofada.update_app.file_provider.UpdateFileProvider"
             android:authorities="${applicationId}.updateprovider"
             android:exported="false"
             android:grantUriPermissions="true">

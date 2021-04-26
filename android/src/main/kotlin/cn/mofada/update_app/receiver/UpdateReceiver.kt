@@ -1,10 +1,11 @@
-package cn.mofada.update_app
+package cn.mofada.update_app.receiver
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import cn.mofada.update_app.installApk
 import java.io.File
 import java.lang.Exception
 
@@ -48,8 +49,7 @@ class UpdateReceiver : BroadcastReceiver() {
                 //判断下载状态
                 if (status != DownloadManager.STATUS_SUCCESSFUL) return
                 //获取文件地址
-                val localUri = cursor.getString(cursor.getColumnIndex(DownloadManager
-                        .COLUMN_LOCAL_URI))
+                val localUri = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
                 installApk(context, File(Uri.parse(localUri).path))
             }
         } catch (e: Exception) {

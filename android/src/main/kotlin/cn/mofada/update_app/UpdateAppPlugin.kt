@@ -2,6 +2,7 @@ package cn.mofada.update_app
 
 import android.content.Context
 import androidx.annotation.NonNull;
+import cn.mofada.update_app.constant.ChannelName
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -16,32 +17,26 @@ public class UpdateAppPlugin : FlutterPlugin, MethodCallHandler {
 
     private lateinit var context: Context
 
-
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.flutterEngine.dartExecutor, sChannelName)
+        channel = MethodChannel(flutterPluginBinding.flutterEngine.dartExecutor, ChannelName.UPDATE_PLUGIN.id)
         context = flutterPluginBinding.applicationContext
         channel.setMethodCallHandler(this)
+
+        //初始化
+        UpdateEvent.onAttachedToEngine(flutterPluginBinding)
     }
 
-    // This static function is optional and equivalent to onAttachedToEngine. It supports the old
-    // pre-Flutter-1.12 Android projects. You are encouraged to continue supporting
-    // plugin registration via this function while apps migrate to use the new Android APIs
-    // post-flutter-1.12 via https://flutter.dev/go/android-project-migration.
-    //
-    // It is encouraged to share logic between onAttachedToEngine and registerWith to keep
-    // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
-    // depending on the user's project. onAttachedToEngine or registerWith must both be defined
-    // in the same class.
     companion object {
-        private const val sChannelName = "cn.mofada.update_app"
-
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), sChannelName)
+            val channel = MethodChannel(registrar.messenger(), ChannelName.UPDATE_PLUGIN.id)
             val updateAppPlugin = UpdateAppPlugin()
             //初始化上下文
             updateAppPlugin.context = registrar.context()
             channel.setMethodCallHandler(updateAppPlugin)
+
+            //初始化
+            UpdateEvent.registerWith(registrar)
         }
     }
 
@@ -49,6 +44,7 @@ public class UpdateAppPlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "updateApp" -> result.success(downloadApp(call, context))
             "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
+            "downloadProcess"-> downloadProcess(call,context);
             else -> result.notImplemented()
         }
     }

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:update_app/constant/argument_name.dart';
+import 'package:update_app/constant/channel_name.dart';
 
 class UpdateApp {
   static const MethodChannel _channel =
-      const MethodChannel('cn.mofada.update_app');
+      const MethodChannel(ChannelName.update_plugin);
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -20,10 +22,20 @@ class UpdateApp {
     String description = "应用更新",
   }) async {
     var result = await _channel.invokeMethod('updateApp', {
-      "argumentsUrl": url,
-      "argumentsTitle": title ?? appName(url),
-      "argumentsDescription": description,
-      "appleId": appleId
+      ArgumentName.url: url,
+      ArgumentName.title: title ?? appName(url),
+      ArgumentName.description: description,
+      ArgumentName.appleId: appleId
+    });
+    return result;
+  }
+
+  //查询下载进度
+  static Future<bool> downloadProcess({
+    @required int downloadId,
+  }) async {
+    var result = await _channel.invokeMethod('updateApp', {
+      "argumentsDownloadId": downloadId,
     });
     return result;
   }

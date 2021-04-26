@@ -1,4 +1,4 @@
-package cn.mofada.update_app
+package cn.mofada.update_app.file_provider
 
 import androidx.core.content.FileProvider
 /**
