@@ -11,7 +11,7 @@ Ios部分不支持外部更新, 跳转App Store.
 ## Experience demo(体验Demo)
 [download apk(下载APK)](apks/app-debug.apk)
 
-![screen](images/screen.png)
+ <img src="images/screen.png" width = "320" height = "580" alt="screen" align=center />
 
 ## How to use(如何使用)
 ```dart

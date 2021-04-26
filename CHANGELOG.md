@@ -36,3 +36,6 @@
 
 ## 0.1.5
 1.update yaml description
+
+## 0.1.6
+1. Merge pull request #9
