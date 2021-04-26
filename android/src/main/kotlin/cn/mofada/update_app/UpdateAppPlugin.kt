@@ -18,12 +18,12 @@ public class UpdateAppPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var context: Context
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.flutterEngine.dartExecutor, ChannelName.UPDATE_PLUGIN.id)
+        channel = MethodChannel(
+            flutterPluginBinding.flutterEngine.dartExecutor,
+            ChannelName.UPDATE_PLUGIN.id
+        )
         context = flutterPluginBinding.applicationContext
         channel.setMethodCallHandler(this)
-
-        //初始化
-        UpdateEvent.onAttachedToEngine(flutterPluginBinding)
     }
 
     companion object {
@@ -34,9 +34,6 @@ public class UpdateAppPlugin : FlutterPlugin, MethodCallHandler {
             //初始化上下文
             updateAppPlugin.context = registrar.context()
             channel.setMethodCallHandler(updateAppPlugin)
-
-            //初始化
-            UpdateEvent.registerWith(registrar)
         }
     }
 
@@ -44,7 +41,7 @@ public class UpdateAppPlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "updateApp" -> result.success(downloadApp(call, context))
             "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
-            "downloadProcess"-> downloadProcess(call,context);
+            "downloadProcess" -> result.success(downloadProcess(call, context))
             else -> result.notImplemented()
         }
     }

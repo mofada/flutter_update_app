@@ -72,33 +72,42 @@ fun downloadApp(call: MethodCall, context: Context): Long {
  * @param
  * @return
  */
-fun downloadProcess(call: MethodCall, context: Context): IntArray {
-    val bytesAndStatus = intArrayOf(-1, -1, 0)
+fun downloadProcess(call: MethodCall, context: Context): Map<String, Any> {
+    val result = HashMap<String, Any>(3)
 
     //获取下载id
-    val downloadId = call.argument<Long>(ArgumentName.DOWNLOADID) ?: return bytesAndStatus
+    val downloadId = call.argument<Int>(ArgumentName.DOWNLOADID) ?: return result
 
     val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
     //通过下载id查询
-    val query = DownloadManager.Query().setFilterById(downloadId)
+    val query = DownloadManager.Query().setFilterById(downloadId.toLong())
     var cursor: Cursor? = null
     try {
         cursor = downloadManager.query(query)
         if (cursor != null && cursor.moveToFirst()) {
             //已经下载文件大小
-            bytesAndStatus[0] =
+            result["current"] =
                 cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
             //下载文件的总大小
-            bytesAndStatus[1] =
+            result["count"] =
                 cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
             //下载状态
-            bytesAndStatus[2] = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+            val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+            result["status"] = statusToString(status)
         }
     } finally {
         cursor?.close()
     }
-    return bytesAndStatus
+    return result
+}
+
+fun statusToString(status: Int) = when (status) {
+    DownloadManager.STATUS_PAUSED -> "STATUS_PAUSED"
+    DownloadManager.STATUS_RUNNING -> "STATUS_RUNNING"
+    DownloadManager.STATUS_SUCCESSFUL -> "STATUS_SUCCESSFUL"
+    DownloadManager.STATUS_FAILED -> "STATUS_FAILED"
+    else -> "STATUS_PAUSED"
 }
 
 

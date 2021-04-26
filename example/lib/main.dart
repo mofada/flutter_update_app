@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:update_app/bean/download_process.dart';
 
 import 'package:update_app/update_app.dart';
 
@@ -12,6 +13,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -45,9 +48,37 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   void download() async {
     var downloadId = await UpdateApp.updateApp(
-        url: "https://mofada.cn/apks/example.apk", appleId: "375380948");
-    setState(() {});
+        url:
+            "https://fga1.market.xiaomi.com/download/AppStore/0940f4c57a12240e1b1e9ce5f80e03313954376d6/com.taobao.taobao.apk",
+        appleId: "375380948");
+
+    if (downloadId == 0 || downloadId == -1) {
+      return;
+    }
+
+    print(downloadId);
+
+    timer = Timer.periodic(Duration(milliseconds: 100), (timer) async {
+      var downloadProcess =
+          await UpdateApp.downloadProcess(downloadId: downloadId);
+      if (downloadProcess.status == ProcessState.STATUS_SUCCESSFUL || downloadProcess.status == ProcessState.STATUS_FAILED) {
+        //如果已经下载成功, 那就取消
+        timer.cancel();
+      } else {
+        //更新界面状态
+        print(downloadProcess);
+        setState(() {});
+      }
+    });
+
+
   }
 }

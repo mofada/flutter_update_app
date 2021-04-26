@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:update_app/bean/download_process.dart';
 import 'package:update_app/constant/argument_name.dart';
 import 'package:update_app/constant/channel_name.dart';
 
@@ -14,7 +15,7 @@ class UpdateApp {
   }
 
   //更新app
-  static Future<bool?> updateApp({
+  static Future<int> updateApp({
     required String url,
     required String appleId,
     String? title,
@@ -30,13 +31,13 @@ class UpdateApp {
   }
 
   //查询下载进度
-  static Future<bool> downloadProcess({
-    @required int downloadId,
+  static Future<DownloadProcess> downloadProcess({
+    required int downloadId,
   }) async {
-    var result = await _channel.invokeMethod('updateApp', {
-      "argumentsDownloadId": downloadId,
+    var result = await _channel.invokeMethod('downloadProcess', {
+      ArgumentName.downloadId: downloadId,
     });
-    return result;
+    return DownloadProcess.fromMap(result);
   }
 
   ///根据下载地址获取文件名称
