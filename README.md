@@ -11,7 +11,7 @@ The Ios section does not support external updates, skip the App Store. Ios部分
 
 [download apk(下载APK)](apks/app-release.apk)
 
- <img src="images/screen.png" width = "320" height = "580" alt="screen" align=center />
+ <img src="https://raw.githubusercontent.com/mofada/flutter_update_app/master/images/screen.png" width = "320" height = "580" alt="screen" align=center />
 
 ## How to use(如何使用)
 
