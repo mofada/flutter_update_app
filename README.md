@@ -9,7 +9,7 @@ The Ios section does not support external updates, skip the App Store. Ios部分
 
 ## Experience demo(体验Demo)
 
-[download apk(下载APK)](apks/app-debug.apk)
+[download apk(下载APK)](apks/app-release.apk)
 
  <img src="images/screen.png" width = "320" height = "580" alt="screen" align=center />
 
@@ -27,22 +27,7 @@ import 'package:update_app/update_app.dart';
 ///
 /// @return `-1` -> `download failed`, `0` -> `There is a current apk locally, and the download is successful`, other (int) -> `downloadId`
 var downloadId = await
-UpdateApp.updateApp(url: "
-apkPath
-"
-,
-appleId:"
-375380948
-"
-,
-title:"
-通知标题
-"
-,
-description:"
-通知描述
-"
-);
+UpdateApp.updateApp(url: "apkPath", appleId:"375380948", title:"通知标题", description:"通知描述");
 
 /// Query apk download progress
 ///

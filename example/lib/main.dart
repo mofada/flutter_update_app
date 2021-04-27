@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
   void download() async {
     var downloadId = await UpdateApp.updateApp(
         url:
-            "https://fga1.market.xiaomi.com/download/AppStore/0940f4c57a12240e1b1e9ce5f80e03313954376d6/com.taobao.taobao.apk",
+            "https://raw.githubusercontent.com/mofada/flutter_update_app/master/apks/app-release.apk",
         appleId: "375380948");
 
     //本地已有一样的apk, 下载成功

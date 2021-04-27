@@ -39,3 +39,7 @@
 
 ## 0.1.6
 1. Merge pull request #9
+
+## 0.1.7
+1. Fix #1
+2. Add download progress monitoring
