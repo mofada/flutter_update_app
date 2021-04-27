@@ -14,7 +14,14 @@ class UpdateApp {
     return version;
   }
 
-  //更新app
+  /// Download the app and update
+  ///
+  /// appleId: This is the app id of the app store, used to jump to the app store
+  /// url: This is the URL to download the apk file
+  /// title: Android download the title displayed in the notification bar, generally use the file name, or like this `update version 1.6`
+  /// description: Android download the description displayed in the notification bar, similar to the subtitle
+  ///
+  /// @return `-1` -> `download failed`, `0` -> `There is a current apk locally, and the download is successful`, other (int) -> `downloadId`
   static Future<int> updateApp({
     required String url,
     required String appleId,
@@ -30,7 +37,19 @@ class UpdateApp {
     return result;
   }
 
-  //查询下载进度
+  /// Query apk download progress
+  ///
+  /// downloadId: [updateApp] 返回的downloadId
+  ///
+  /// @return [DownloadProcess]
+  /// current: Currently downloaded length
+  /// count: Total length
+  /// status: [ProcessState]
+  ///         STATUS_PENDING: [ProcessState.STATUS_PENDING](https://developer.android.com/reference/android/app/DownloadManager#STATUS_PENDING)
+  ///         STATUS_RUNNING: [ProcessState.STATUS_RUNNING](https://developer.android.com/reference/android/app/DownloadManager#STATUS_RUNNING)
+  ///         STATUS_PAUSED: [ProcessState.STATUS_PAUSED](https://developer.android.com/reference/android/app/DownloadManager#STATUS_PAUSED)
+  ///         STATUS_SUCCESSFUL: [ProcessState.STATUS_SUCCESSFUL](https://developer.android.com/reference/android/app/DownloadManager#STATUS_SUCCESSFUL)
+  ///         STATUS_FAILED: [ProcessState.STATUS_FAILED](https://developer.android.com/reference/android/app/DownloadManager#STATUS_FAILED)
   static Future<DownloadProcess> downloadProcess({
     required int downloadId,
   }) async {
@@ -40,7 +59,7 @@ class UpdateApp {
     return DownloadProcess.fromMap(result);
   }
 
-  ///根据下载地址获取文件名称
+  ///Obtain the file name according to the download address
   static String appName(String url) {
     return url.substring(url.lastIndexOf("/") + 1);
   }
