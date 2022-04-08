@@ -6,6 +6,7 @@
 
     <application>
         <receiver
+            android:exported="true"
             android:name=".receiver.UpdateReceiver"
             android:enabled="true">
             <intent-filter>
